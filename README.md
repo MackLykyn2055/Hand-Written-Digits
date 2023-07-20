@@ -1,2 +1,1 @@
-# KickStart
-My Code when Solving Kickstart
+my first training on machine learning
