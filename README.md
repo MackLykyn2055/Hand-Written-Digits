@@ -1,1 +1,1 @@
-my first training on machine learning
+my first training on neural network
