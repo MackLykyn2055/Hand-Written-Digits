@@ -1,0 +1,58 @@
+from PIL import Image
+from layer1 import *
+
+image = Image.open("test.png")
+
+# Convert the image to grayscale
+gray_image = image.convert("L")
+
+# Save the grayscale image
+
+# Access the pixel data
+pixels = gray_image.load()
+
+# Get the dimensions of the image
+width, height = gray_image.size
+
+# Display the pixel values
+m = []
+for y in range(height):
+    ph = []
+    ch = False
+    for x in range(width):
+        # Get the grayscale value of each pixel
+        pixel = pixels[x, y]
+
+        # Normalize the value between 0 and 1
+        pixel_norm = pixel / 255.0
+
+        ph.append(1 if not pixel_norm else " ")
+        if not pixel_norm:
+            ch = True
+    if ch:
+        m.append(ph)
+ph = []
+li = len(m[0])
+for i in range(li):
+    ch = False
+    x = []
+    for j in range(len(m)):
+        x.append(m[j][i])
+        if m[j][i] == 1:
+            ch = True
+    if ch:
+        ph.append(x)
+li = len(ph[0])
+m = []
+for i in range(li):
+    x = []
+    for j in range(len(ph)):
+        x.append(ph[j][i])
+    m.append(x)
+
+
+predict = cutting(m)
+# print(predict)
+print("It's an image of",[k for k, v in sorted(predict.items(), key=lambda ele:ele[1], reverse=True)][0])
+
+image.close()
