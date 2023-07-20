@@ -13,7 +13,6 @@ def toplayer(arr, ll):
     ls = arr[0].index(1)
     l = arr[0][::-1]
     le = l.index(1)
-    ii = 0
     for i in arr[1:]:
         ns = i.index(1)
         l = i[::-1]
@@ -26,6 +25,9 @@ def toplayer(arr, ll):
             ll[6] += 10
             ll[8] += 10
             ll[9] += 10
+            ll[7] -= 10
+            ll[1] -= 10
+            ll[4] -= 10
         elif (ns == ls or 1 + ns == ls or 2 + ns == ls or 3 + ns == ls) and le + 15 < ne:
             ll[5] += 60
             ll[6] += 60
@@ -43,7 +45,8 @@ def toplayer(arr, ll):
         elif ne == le and ns < ls:
             ll[1] += 10
             ll[7] += 10
-        if ls + 30 < ns:
+            ll[4] += 10
+        if ls + 30 < ns and " " not in i[ns:-ne]:
             ll[7] += 30
         ls = ns
         le = ne
@@ -112,6 +115,7 @@ def middledownlayer(arr, ll):
         if ns < ls and ne < le:
             ll[6] += 1
             ll[8] += 1
+            ll[9] -= 10
         elif len(set(i[ns:-ne])) == 1 and len(i[ns:-ne]) > len(i)//2:
             ll[7] += 3
         elif ne + 10 < le:
@@ -152,6 +156,7 @@ def bottomlayer(arr, ll):
     ls = arr[0].index(1)
     l = arr[0][::-1]
     le = l.index(1)
+    diff = abs(ls - (len(arr[0])-le))
     for i in arr[1:]:
         ns = i.index(1)
         l = i[::-1]
@@ -181,4 +186,8 @@ def bottomlayer(arr, ll):
             ll[2] -= 5
         ls = ns
         le = ne
+        if abs(ls - (len(arr[0]) - le)) == diff or abs(ls - (len(arr[0]) - le)) == diff+1 or abs(ls - (len(arr[0]) - le)) == diff-1:
+            ll[9] += 3
+            ll[4] += 3
+            ll[0] -= 10
     return ll
